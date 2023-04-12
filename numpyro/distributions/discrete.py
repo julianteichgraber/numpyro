@@ -731,7 +731,6 @@ class ZeroInflatedProbs(Distribution):
     def __init__(self, base_dist, gate, *, validate_args=None):
         batch_shape = lax.broadcast_shapes(jnp.shape(gate), base_dist.batch_shape)
         (self.gate,) = promote_shapes(gate, shape=batch_shape)
-        assert base_dist.support.is_discrete
         if base_dist.event_shape:
             raise ValueError(
                 "ZeroInflatedProbs expected empty base_dist.event_shape but got {}".format(
